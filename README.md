@@ -1,5 +1,10 @@
 # NeoHash
 
+[![Gem Version](https://badge.fury.io/rb/neohash.svg)](https://badge.fury.io/rb/neohash)
+[![Build Status](https://travis-ci.org/tilfin/neohash.svg?branch=master)](https://travis-ci.org/tilfin/neohash)
+[![Code Climate](https://codeclimate.com/github/tilfin/neohash/badges/gpa.svg)](https://codeclimate.com/github/tilfin/neohash)
+[![Test Coverage](https://codeclimate.com/github/tilfin/neohash/badges/coverage.svg)](https://codeclimate.com/github/tilfin/neohash/coverage)
+
 Accessible Hash and attaching it to an Object
 
 ## Installation
