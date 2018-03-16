@@ -15,6 +15,18 @@ describe NeoHash do
     }
   end
 
+  let!(:h_symbol) do
+    {
+      port: 80,
+      log: { level: 'warn' },
+      array: [123, {
+        data: 'data'
+      }, {
+        value: 100
+      }]
+    }
+  end
+
   describe '#initialize' do
     it 'an instance that has accessors by method' do
       expect(subject.port).to eq(80)
@@ -51,18 +63,6 @@ describe NeoHash do
   end
 
   describe '#to_h' do
-    let!(:h_symbol) do
-      {
-        port: 80,
-        log: { level: 'warn' },
-        array: [123, {
-          data: 'data'
-        }, {
-          value: 100
-        }]
-      }
-    end
-
     it 'creates an hash with name as symbol' do
       expect(subject.to_h).to eq(h_symbol)
     end
@@ -73,6 +73,12 @@ describe NeoHash do
 
     it 'creates an hash with name as string' do
       expect(subject.to_h(symbolize_keys: false)).to eq(h)
+    end
+  end
+
+  describe '#to_hash' do
+    it 'creates an hash with name as symbol' do
+      expect(subject.to_hash).to eq(h_symbol)
     end
   end
 
