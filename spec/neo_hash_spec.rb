@@ -6,7 +6,12 @@ describe NeoHash do
   let!(:h) do
     {
       'port' => 80,
-      'log' => { 'level' => 'warn' }
+      'log' => { 'level' => 'warn' },
+      'array' => [123, {
+        'data' => 'data'
+      }, {
+        'value' => 100
+      }]
     }
   end
 
@@ -14,16 +19,25 @@ describe NeoHash do
     it 'an instance that has accessors by method' do
       expect(subject.port).to eq(80)
       expect(subject.log.level).to eq('warn')
+      expect(subject.array[0]).to eq(123)
+      expect(subject.array[1].data).to eq('data')
+      expect(subject.array[2].value).to eq(100)
     end
 
     it 'an instance that has accessors by symbol' do
       expect(subject[:port]).to eq(80)
       expect(subject[:log][:level]).to eq('warn')
+      expect(subject[:array][0]).to eq(123)
+      expect(subject[:array][1].data).to eq('data')
+      expect(subject[:array][2].value).to eq(100)
     end
 
     it 'an instance that has accessors by string' do
       expect(subject['port']).to eq(80)
       expect(subject['log']['level']).to eq('warn')
+      expect(subject['array'][0]).to eq(123)
+      expect(subject['array'][1].data).to eq('data')
+      expect(subject['array'][2].value).to eq(100)
     end
 
     it 'an instance that has accessors by various ways' do
@@ -40,7 +54,12 @@ describe NeoHash do
     let!(:h_symbol) do
       {
         port: 80,
-        log: { level: 'warn' }
+        log: { level: 'warn' },
+        array: [123, {
+          data: 'data'
+        }, {
+          value: 100
+        }]
       }
     end
 
@@ -123,11 +142,11 @@ describe NeoHash do
     end
 
     it 'can call inner hash#keys' do
-      expect(subject.keys).to eq([:port, :log])
+      expect(subject.keys).to eq([:port, :log, :array])
     end
 
     it 'can call inner hash#map' do
-      expect(subject.map {|k, v| k }).to eq [:port, :log]
+      expect(subject.map {|k, v| k }).to eq [:port, :log, :array]
     end
 
     it 'can call inner hash#select' do

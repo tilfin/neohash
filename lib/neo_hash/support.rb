@@ -65,8 +65,7 @@ class NeoHash
       symbolize = opts.fetch(:symbolize_keys, true)
 
       @h.map {|key, val|
-        [symbolize ? key : key.to_s,
-         val.is_a?(NeoHash) ? val.to_h(opts) : val]
+        [symbolize ? key : key.to_s, to_primitive(val, opts)]
       }.to_h
     end
 
@@ -104,7 +103,15 @@ class NeoHash
     end
 
     def convert_val(val)
-      val.instance_of?(Hash) ? NeoHash.new(val) : val
+      return NeoHash.new(val) if val.instance_of?(Hash)
+      return val.map {|item| convert_val(item) } if val.instance_of?(Array)
+      val
+    end
+
+    def to_primitive(val, opts)
+      return val.to_h(opts) if val.is_a?(NeoHash)
+      return val.map {|item| to_primitive(item, opts) } if val.is_a?(Array)
+      val
     end
   end
 
