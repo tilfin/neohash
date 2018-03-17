@@ -103,14 +103,15 @@ class NeoHash
     end
 
     def convert_val(val)
-      return NeoHash.new(val) if val.instance_of?(Hash)
+      return NeoHash.new(val) if val.is_a?(Hash)
       return val.map {|item| convert_val(item) } if val.instance_of?(Array)
       val
     end
 
     def to_primitive(val, opts)
-      return val.to_h(opts) if val.is_a?(NeoHash)
-      return val.map {|item| to_primitive(item, opts) } if val.is_a?(Array)
+      return val.to_h(opts) if val.instance_of?(NeoHash)
+      return val.to_hash if val.respond_to?(:to_hash)
+      return val.map {|item| to_primitive(item, opts) } if val.instance_of?(Array)
       val
     end
   end
